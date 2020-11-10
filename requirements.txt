@@ -1,0 +1,7 @@
+walnuts
+flask
+flask_login
+pytest
+pytest-html
+paramiko
+openpyxl
