@@ -1,3 +1,2 @@
-# api_test
-## 套用walnuts测试框架的代码
-[原框架地址](框架地址:"https://github.com/sunhetao/walnuts")
+## 套用walnuts测试框架的用于消金项目的接口测试
+[原框架地址](https://github.com/sunhetao/walnuts)
