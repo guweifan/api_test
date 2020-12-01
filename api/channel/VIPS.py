@@ -30,7 +30,7 @@ class Encrvption:
 
         """影像件上传"""
         applyImgPath = "/lttsdata/ICMS/VIPS" + referno + "/1.jpg"
-        src_file = 'D:\\Python_work\\walnuts_api\\api_test\\img\\'
+        src_file = '/img\\'
         src_file = rename(src_file, referno)
         src_file = src_file + "\\1.jpg"
         upload(src_file, applyImgPath)
@@ -110,14 +110,58 @@ class Encrvption:
 
 # 招联授信
 @RequestMapping(path='{app.vip_apply}', method=Method.POST)
-class openAccount:
+class loanApply:
 
     @RequestMapping(method=Method.POST)
-    def creditApply(self):
-        '''授信申请接口'''
-        fun = Encrvption()
-        data = fun.VIPS_apply().json()
-        return Requester(json=data)
+    def loanApply(self):
+        '''唯品会提现申请'''
+        seqno = generate_random_num(12)
+        headers = {
+        "dserviceId":"PATSVPSS2001",
+        "api_id":"PATSVPSS2001",
+        "callseqno":seqno,
+        "busiseqno":seqno,
+        "calseqno":seqno,
+        "dversion":"1.0",
+        "Content-Type":"application/json"
+        }
+        data = {
+        "input": {
+        "amount": "500.00",
+        "loanUse": "A",
+        "graceDay": "2",
+        "trxnType": "1",
+        "dailyIntRate": "0.00018",
+        "openAccountOrderNo": "BO2398009046872288",
+        "requestNo": "1601273994464141910",
+        "userName": "祝嬖",
+        "repayType": "01",
+        "userCardNo": "622909049100014018",
+        "userIdExpiryDate": "20290907",
+        "stage": "3",
+        "channelUserId": "B00000000379",
+        "userMobile": "15892870937",
+        "loanOrderNo": "62290904910001421",
+        "userIdStartDate": "20280916",
+        "yearIntRate": "0.36",
+        "repayDate": "",
+        "bankCardCode": "CIB",
+        "channelCode": "VIP",
+        "userIdNo": "220801196004073943",
+        "extraInfo": ""
+    },
+    "comm_req": {
+        "initiator_date": "20200928",
+        "initiator_system": "333",
+        "trxn_branch": "3443",
+        "initiator_seq": seqno,
+        "call_seq": seqno,
+        "busi_seq": seqno,
+        "sponsor_system": "100",
+        "busi_org_id": "985",
+        "channel_id": "VIPS"
+    }
+}
 
 
 

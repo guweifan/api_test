@@ -8,7 +8,7 @@ from api.randstr import get_name,generate_random_num,get_tel,generate_random_str
 
 
 
-@RequestMapping(path='{app.sit2_gateway}',method=Method.POST)
+@RequestMapping(path='{app.sit1_gateway}',method=Method.POST)
 class MIFI_apply:
 
 
@@ -25,14 +25,20 @@ class MIFI_apply:
         applyTime = get_time()
         idnumber = IdNumber.generate_id(random_sex)
 
-        """影像件上传"""
+        """sit2影像件上传"""
         filename = "IMG_" + applyNo + "_" + applyTime + ".tar.gz"
         src_file = 'D:\\Python_work\\walnuts_api\\api_test\\resources\\'
-        # applyImgPath = "/pc_zyxj/credit/img/20201102/" + filename
         applyImgPath = "/lttsdata/MIFI/img/" + filename
         src_file = rename(src_file,filename)
         upload(src_file, applyImgPath)
+
+        # """sit影像件上传"""
+        # filename = "IMG_" + applyNo + "_" + applyTime + ".tar.gz"
+        # src_file = 'D:\\Python_work\\walnuts_api\\api_test\\resources\\'
+        # applyImgPath = "/pc_zyxj/credit/img/20201102/" + filename
+        # src_file = rename(src_file, filename)
         # upload_MI(src_file, applyImgPath)
+
         """存储客户信息"""
         custinfo = [name, mobile, idnumber, applyNo, openId, applyImgPath]
         writeExcel(sheetname=idnumber, custinfo=custinfo)
@@ -247,15 +253,6 @@ class MIFI_apply:
                         "companyName":"",
                         "applyAuthPath":"",
                         "applyImgPath":"",
-                        "ocr":{
-                            "nameOcr":"",
-                            "numberOcr":"",
-                            "addressOcr":"",
-                            "ethnicOcr":"",
-                            "dueTimeOcr":"",
-                            "sexOcr":"",
-                            "issueOrgOcr":""
-                        },
                         "incomeLevel":"",
                     },
                     "bankAmount":"300000",

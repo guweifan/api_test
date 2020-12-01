@@ -3,8 +3,8 @@ import paramiko
 
 #创建一个通道
 hostname = '10.182.211.137'
-username = 'boccfc'
-password = 'boccfc123'
+username = 'root'
+password = 'root123'
 # dsc_path = '/credit/img/20201030/'
 src_file = 'D:\\Python_work\\walnuts_api\\api_test\\resources\\'
 private_dir = 'D:\\Python_work\\walnuts_api\\api_test\\img\\id_rsa_pc_zyxj_staging'
@@ -44,14 +44,28 @@ def upload_MI(src_file, dsc_path):
     sftp.put(src_file, dsc_path)
     transport.close()
 
-def cmd():
-    '''在服务器上执行命令'''
-    transport = paramiko.Transport((hostname, 22))
-    transport.connect(username=username, password=password)
-    ssh = paramiko.SSHClient()
+def mkdir(filename):
+    try:
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.connect(hostname, username=username, password=password)
+        sftp = ssh.open_sftp()
+        dir = "/upload/crpl_zhongyin/20201124/ocr/" + filename
+        sftp.mkdir(dir)
+        print("Create folder" + filename + "in remote hosts successfully!\n")
+        ssh.close()
+    except:
+        print("Create folder failure!\n")
 
 
 
-# if __name__ == "__main__":
-#     src_file = rename('IMG_4020_2024.tar.gz')
-#     print(src_file)
+if __name__ == "__main__":
+    filename = "test112"
+    mkdir(filename)
+    dir = "/upload/crpl_zhongyin/20201124/ocr/" + filename + "/vip_img01.txt"
+    img1 = 'D:\\Python_work\\walnuts_api\\api_test\\resources\\vip_img01.txt'
+    img2 = 'D:\\Python_work\\walnuts_api\\api_test\\resources\\vip_img02.txt'
+    img3 = 'D:\\Python_work\\walnuts_api\\api_test\\resources\\vip_img03.txt'
+    upload(img1, dir)
+    # upload(img2, dir)
+    # upload(img3, dir)

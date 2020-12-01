@@ -18,7 +18,7 @@ class Encrvption:
         custNo = "test" + generate_random_num(11)
         openId = generate_random_str(10)
         random_sex = random.randint(0, 1)
-        applyTime = "20200605"
+        applyTime = get_time()
         idNo = IdNumber.generate_id(random_sex)
         data = {
                 "bizContent":{
@@ -34,13 +34,13 @@ class Encrvption:
                 "gpsAddr":"116,40",
                 "trustId":"000000000",
                 "workCity":"",
-                "certValidDate":"20000801-20300801",
+                "certValidDate":"20100801-20300801",
                 "addr":"中国台湾台北市",
                 "applyTime":applyTime,
                 "channelCode":"MUCF",
                 "address":"中国台湾",
                 "workAddr":"上海市",
-                "suggestLimit":"900",
+                "suggestLimit":"49999",
                 "custName":custName,
                 "extendInfo": "{\"cardLmtNear6mUsed\":\"0\",\"card24mHstrOvdMax\":\"000000000000000000000000\",\"class5StateGuaLoan\":\"否\",\"cardOvdAmtTot\":\"0\",\"loanOvdAmtTot\":\"0\",\"loan24mHstrOvdCnt\":\"000000000000000000000000\",\"loanQueryOrgCnt1m\":\"0\",\"selfQueryCnt1m\":\"0\",\"badDebtRecords\":\"否\",\"loanBalance\":\"0\",\"loanAbnormalCnt\":\"0\",\"houseFundBase\":\"5\",\"ovdMonthMax\":\"0\",\"houseLoanPrcp\":\"0\",\"reportCreateTime\":\"0\",\"cardLmtUsed\":\"\",\"cardAbnormalCnt\":\"0\",\"loanOrgCnt\":\"0\",\"cardTotLmt\":\"0\",\"cardUsingHstrAvg\":\"0\",\"card24mHstrOvdCnt\":\"000000000000000000000000\",\"cardQueryOrgCnt1m\":\"0\",\"loan24mHstrOvdMax\":\"000000000000000000000000\",\"monthIncome\":\"10000\",\"loanPayAmt1m\":\"0\"}",
                 "workCompany":"",
@@ -71,7 +71,7 @@ class CreditApply:
     def creditApply(self):
         '''授信申请接口'''
         fun = Encrvption()
-        data = fun.creditApply_encrvption().text()
+        data = fun.creditApply_encrvption().json()
         return Requester(json=data)
 
 
