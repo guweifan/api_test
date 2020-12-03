@@ -1,5 +1,5 @@
 import cx_Oracle as cx
-
+import os
 
 def get_applid(applyno):
     '''获取进件中心 applid'''

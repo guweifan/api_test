@@ -1,5 +1,8 @@
 import os
+import tarfile
 import paramiko
+from api.randstr import get_date
+
 
 #创建一个通道
 hostname = '10.182.211.137'
@@ -58,14 +61,23 @@ def mkdir(filename):
         print("Create folder failure!\n")
 
 
+def get_tar(applyNo):
+    data = get_date()
+    filename = applyNo + "_" + data + ".tar"
+    tar = tarfile.open("D:\\Python_work\\walnuts_api\\api_test\\img\\"+ filename, "w")
+    tar.add("D:\\Python_work\\walnuts_api\\api_test\\img\\IDB_1.jpg", arcname=applyNo + "_idcard_01.jpg")
+    tar.add("D:\\Python_work\\walnuts_api\\api_test\\img\\IDA_2.jpg", arcname=applyNo + "_idcard_02.jpg")
+    tar.add("D:\\Python_work\\walnuts_api\\api_test\\img\\IDX_3.jpg", arcname=applyNo + "_face.jpg")
+    tar.close()
+    return filename
+
+
+
 
 if __name__ == "__main__":
-    filename = "test112"
-    mkdir(filename)
-    dir = "/upload/crpl_zhongyin/20201124/ocr/" + filename + "/vip_img01.txt"
-    img1 = 'D:\\Python_work\\walnuts_api\\api_test\\resources\\vip_img01.txt'
-    img2 = 'D:\\Python_work\\walnuts_api\\api_test\\resources\\vip_img02.txt'
-    img3 = 'D:\\Python_work\\walnuts_api\\api_test\\resources\\vip_img03.txt'
-    upload(img1, dir)
-    # upload(img2, dir)
-    # upload(img3, dir)
+    applyNo = "123456789"
+    app = get_tar(applyNo)
+    src = "D:\\Python_work\\walnuts_api\\api_test\\img\\" + app
+    path = "/upload/LXIN/photo/20201202/" + app
+    print(app)
+    upload(src, path)

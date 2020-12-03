@@ -9,5 +9,5 @@ class TestcreditApply:
         '''招联授信申请'''
         app = CreditApply()
         res = app.creditApply()
-        # assert 'SUCCESS' in res
+        assert 'SUCCESS' in res
         # return res

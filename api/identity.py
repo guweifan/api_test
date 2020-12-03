@@ -18,8 +18,8 @@ class IdNumber(str):
         self.id = id_number
         self.area_id = int(self.id[0:6])
         self.birth_year = int(self.id[6:10])
-        self.birth_month = int(self.id[10:12])
-        self.birth_day = int(self.id[12:14])
+        self.birth_month = str(self.id[10:12])
+        self.birth_day = str(self.id[12:14])
 
     def get_area_name(self):
         """根据区域编号取出区域名称"""
@@ -27,7 +27,9 @@ class IdNumber(str):
 
     def get_birthday(self):
         """通过身份证号获取出生日期"""
-        return "{0}-{1}-{2}".format(self.birth_year, self.birth_month, self.birth_day)
+        # birthDate = str(self.birth_year)+str(self.birth_month)+str(self.birth_day)
+        # return birthDate
+        return "{0}{1}{2}".format(self.birth_year, self.birth_month, self.birth_day)
 
     def get_age(self):
         """通过身份证号获取年龄"""
@@ -85,7 +87,7 @@ if __name__ == '__main__':
     random_sex = random.randint(0, 1)  # 随机生成男(1)或女(0)
     idnumber = IdNumber.generate_id(random_sex)
     # userBirthDate = IdNumber.get_birthday(idnumber)
-    # print(IdNumber.generate_id(random_sex))  # 随机生成身份证号
+    print(idnumber)  # 随机生成身份证号
     # # print((idnumber).area_id)  # 地址编码:410326
     # # print(idnumber).get_area_name())  # 地址:河南省洛阳市汝阳县
     print(IdNumber(idnumber).get_birthday())  # 生日:1995-7-10

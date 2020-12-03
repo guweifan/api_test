@@ -1,5 +1,5 @@
-from api.channel.JieBei import JieBei_apply,ICMSLNTS0001
-from api.SQL import get_applid,get_requestid
+from api.channel.JieBei import JieBei_apply, ICMSLNTS0001
+from api.SQL import get_applid, get_requestid
 
 
 class TestApply:
