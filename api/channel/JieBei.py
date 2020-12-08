@@ -329,3 +329,94 @@ class ICMSLNTS0001:
         }
 
         return Requester(headers=header, json=data)
+
+
+@RequestMapping(path='{app.sit3_gateway}', method=Method.POST)
+class PATSJBSS1002:
+
+    @RequestMapping(method=Method.POST)
+    def ADMIT_APPLY(self,creditRate,checkStatus):
+        """授信终审回调"""
+        seqno = generate_random_str(17)
+        calseqno = "LN" + generate_random_num(12)
+        applid = "BO"+generate_random_num(16)
+
+        header = {
+            "dserviceId": "PATSJBSS1002",
+            "api_id": "PATSJBSS1002",
+            "country": "cn",
+            "dapplication": "01001",
+            "callseqno": calseqno,
+            "dgroup": "01",
+            "dversion": "1.0",
+            "busiseqno": calseqno,
+            "Content-Type": "application/json"
+        }
+
+        data = {
+            "input": {
+                "applid": "BO2020112400000773",
+                "bizType": "ADMIT_APPLY",
+                "crdtno": "7010000000370",
+                "creditRate": creditRate,
+                "resultCode": "RA_APPROVAL",
+                "source": "USER",
+                "serialNo": "20201205153900000000000000001345",
+                "resultMsg": "成功",
+                "requestTime": "2020-12-05 15:39:00",
+                "partnerNo": "C0000002",
+                "certNo": "362329198604053365",
+                "checkStatus": checkStatus,
+                "productCode": "JB",
+                "checkTime": "20201205153810",
+                "checkAmount": "5000000",
+                "applyNo": "208084027184396882A",
+                "expiryTime": "20210605",
+                "custId": "B00000000416",
+                "checkOperator": "chenyiruo",
+                "creditAmt": "5000000",
+                "creditNo": "208084027184396882A",
+                "bizMode": "PLATFORM_1"
+            },
+            "comm_req": {
+                "trantm": "844568",
+                "initiator_system": "301",
+                "app_version": "1.0",
+                "trxn_branch": "06924",
+                "call_seq": seqno,
+                "trxn_teller": "07988122",
+                "sponsor_system": "810",
+                "auth_user_id": "153148",
+                "servtp": "TE",
+                "sys_version": "1.0",
+                "inpudt": "20200604",
+                "servno": "004",
+                "busi_seq": seqno,
+                "page_start": "1",
+                "trxn_seq": seqno,
+                "tranbr": "985000",
+                "trandt": "20200604",
+                "longitude": "31.2579921",
+                "page_size": "10",
+                "orderSeq": seqno,
+                "phone_type": "0",
+                "initiator_date": "20200711",
+                "inpucd": "985",
+                "busisq": calseqno,
+                "rsa_key": "77777777777777",
+                "inpusq": seqno,
+                "corpno": "985",
+                "ip_address": "127.0.0.1",
+                "busi_org_id": "025",
+                "busiseqno": seqno,
+                "terminal_os_type": "0",
+                "tranus": "xadmin",
+                "initiator_seq": seqno,
+                "pageIndex": "1",
+                "pageno": "1",
+                "pgsize": "1",
+                "callseqno": seqno,
+                "channel_id": "JIEB"
+            },
+        }
+        return Requester(headers=header, json=data)

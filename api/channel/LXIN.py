@@ -1,30 +1,42 @@
 import random
+import os
+import time
+from api.Uploadfile import get_tar, upload_LXIN
 from api.identity import IdNumber
 from walnuts import RequestMapping, Method, Requester
-from api.randstr import get_name,generate_random_num,get_tel,generate_random_str,get_time,get_card_id,get_email
+from api.randstr import get_name,generate_random_num,get_tel,get_time,get_card_id,get_email,get_date
 
 
 
-
-@RequestMapping(path='{app.sit_gateway}',method=Method.POST)
+@RequestMapping(path='{app.sit1_gateway}',method=Method.POST)
 class LXIN:
 
     @RequestMapping(method=Method.POST)
     def PATSCMSS5005(self):
-        '''授信申请'''
-        seqno = generate_random_str(17)
+        '''乐信授信申请'''
+        seqno = generate_random_num(17)
         calseqno = "LN" + generate_random_num(12)
         name = get_name()
         mobile = get_tel()
         mail = get_email()
-        cardNo = get_card_id()
+        cardNo = "6216610200016587010"
         applyNo = generate_random_num(18)
         userid = "user"+generate_random_num(9)
         random_sex = random.randint(1, 2)
         applyTime = get_time()
+        date = get_date()
         idnumber = IdNumber.generate_id(random_sex)
-        birthDate = IdNumber.get_birthday(idnumber)
+        birthDate = IdNumber(idnumber).get_birthday()
 
+        """影像件上传155 SFTP"""
+        tar = get_tar(applyNo=applyNo)
+        src = "D:\\Python_work\\walnuts_api\\api_test\\img\\" + tar
+        path = "/upload/LXIN/photo/" + date + "/" + tar
+        upload_LXIN(src, path)
+        time.sleep(1)
+        os.remove(src)
+
+        """报文头信息"""
         header = {
             "api_id":"PATSCMSS5005",
             "country":"cn",
@@ -38,10 +50,11 @@ class LXIN:
             "Content-Type":"application/json"
         }
         data = {
+        "input":{
             "applyNo":applyNo,
             "channelCode":"LXIN",
             "applyTime":applyTime,
-            "prodCode":"02050015",
+            "prodCode":"LXIN001",
             "applyAmt":"20000",
             "applyPeriod":"12",
             "userInfo":{
@@ -59,36 +72,79 @@ class LXIN:
                 "marryStatus": "10",
                 "eduLevel": "010",
                 "degree": "5",
-                "yearIncome": "200000",
+                "monthIncome": "5",
                 "inctry": "156",
                 "liveStatus": "5",
                 "liveYear": "5",
                 "liveAddProvince": "上海",
                 "liveAddCity": "上海",
-                "liveAddArea": "黄浦区",
+                "liveAddArea": "黄浦",
                 "liveAddress": "滇池路81号嘉煜外滩中心",
-                "cardTpye": "0",
+                "cardTpye": "C",
                 "workInfo": {
                     "empName": "上海中银消费",
                     "empTelNo": "010-88888888",
                     "empIndustry": "J",
                     "empProp": "0",
-                    "workAddProvince": "上海市",
+                    "workAddProvince": "上海",
                     "workAddCity": "上海",
-                    "workAddArea": "黄浦区",
+                    "workAddArea": "黄浦",
                     "workAddDetail": "滇池路74号中银消费",
                     "empZipCode": "200120",
                     "profession": "0",
                     "jobTit": "9",
                     "jobPos": "9",
                 },
-                "emergList":{
-                    "emergRelation":"PARENT",
-                    "emergName":"毛链",
-                    "emergTel": "17395800902",
-                    "emergCertNo": "130701197605236186",
-                }
+                "emergList": [
+                    {
+                    "emergName": "马保国",
+                    "emergRelation": "PARENT",
+                    "emergTel": "15936617570",
+                    "emergCertNo": "440300196308081042"
+                    }
+                ]
+            }
             },
+        "comm_req": {
+                "trantm": "752512",
+                "initiator_system": "301",
+                "app_version": "1.0",
+                "trxn_branch": "77710",
+                "call_seq": calseqno,
+                "trxn_teller": "95068241",
+                "sponsor_system": "810",
+                "auth_user_id": "587046",
+                "servtp": "TE",
+                "sys_version": "1.0",
+                "inpudt": date,
+                "servno": "004",
+                "busi_seq": seqno,
+                "page_start": "1",
+                "trxn_seq": seqno,
+                "tranbr": date,
+                "trandt": date,
+                "longitude": "31.2579921",
+                "page_size": "10",
+                "orderSeq": calseqno,
+                "phone_type": "0",
+                "initiator_date": date,
+                "inpucd": "985",
+                "busisq": seqno,
+                "rsa_key": "77777777777777",
+                "inpusq": calseqno,
+                "corpno": "985",
+                "ip_address": "127.0.0.1",
+                "busi_org_id": "025",
+                "busiseqno": seqno,
+                "terminal_os_type": "0",
+                "tranus": "xadmin",
+                "initiator_seq": calseqno,
+                "pageIndex": "1",
+                "pageno": "1",
+                "pgsize": "1",
+                "callseqno": calseqno,
+                "channel_id": "LXIN"
+            }
         }
         return Requester(headers=header, json=data)
 
@@ -96,7 +152,11 @@ class LXIN:
     @RequestMapping(method=Method.POST)
     def PATSCMSS5006(self,applyNo):
         '''授信申请查询'''
-        seqno = generate_random_str(11)
+        seqno = generate_random_num(17)
+        calseqno = "LN" + generate_random_num(12)
+        date = get_date()
+
+        """报文头信息"""
         header = {
             "api_id": "PATSCMSS5006",
             "country": "cn",
@@ -110,18 +170,65 @@ class LXIN:
             "Content-Type": "application/json"
         }
         data = {
-            "applyNo":applyNo,
-            "channelCode":"LXIN",
-            "prodCode":"02050015"
+            "input":{
+                "applyNo": applyNo,
+                "channelCode": "LXIN",
+                "prodCode": "02050015"
+            },
+            "comm_req": {
+                "trantm": "752512",
+                "initiator_system": "301",
+                "app_version": "1.0",
+                "trxn_branch": "77710",
+                "call_seq": calseqno,
+                "trxn_teller": "95068241",
+                "sponsor_system": "810",
+                "auth_user_id": "587046",
+                "servtp": "TE",
+                "sys_version": "1.0",
+                "inpudt": date,
+                "servno": "004",
+                "busi_seq": seqno,
+                "page_start": "1",
+                "trxn_seq": seqno,
+                "tranbr": date,
+                "trandt": date,
+                "longitude": "31.2579921",
+                "page_size": "10",
+                "orderSeq": calseqno,
+                "phone_type": "0",
+                "initiator_date": date,
+                "inpucd": "985",
+                "busisq": seqno,
+                "rsa_key": "77777777777777",
+                "inpusq": calseqno,
+                "corpno": "985",
+                "ip_address": "127.0.0.1",
+                "busi_org_id": "025",
+                "busiseqno": seqno,
+                "terminal_os_type": "0",
+                "tranus": "xadmin",
+                "initiator_seq": calseqno,
+                "pageIndex": "1",
+                "pageno": "1",
+                "pgsize": "1",
+                "callseqno": calseqno,
+                "channel_id": "LXIN"
+            }
         }
-        return Requester(header = header, json = data)
+        return Requester(headers=header, json=data)
 
 
     @RequestMapping(method=Method.POST)
-    def PATSCMSS6002(self):
+    def PATSCMSS6002(self,applyNo):
         '''借款申请-标准'''
-        seqno = generate_random_str(11)
+        seqno = generate_random_num(17)
+        calseqno = "LN" + generate_random_num(12)
+        date = get_date()
         applyTime = get_time()
+        paymentApplyNo = "L" + generate_random_num(13)
+
+        """报文头信息"""
         header = {
             "api_id": "PATSCMSS6002",
             "country": "cn",
@@ -135,35 +242,77 @@ class LXIN:
             "Content-Type": "application/json"
         }
         data = {
-            "applyNo":"",
-            "paymentApplyNo":"",
-            "channelCode": "",
+            "applyNo":applyNo,
+            "paymentApplyNo":paymentApplyNo,
+            "channelCode": "LXIN",
             "userId": "",
             "applyTime": applyTime,
             "prodCode": "02050015",
-            "applyAmt": "",
-            "applTnr": "",
-            "repytp": "",
+            "applyAmt": "2000",
+            "applTnr": "12",
+            "repytp": "1",
             "intRate": "",
             "loanPurpose": "",
             "insureNo": "",
-            "busiScen": "",
+            "busiScen": "0",
             "extInfo": {
-                "busiType":""
+                "busiType":"3"
             },
+            "comm_req": {
+                "trantm": "752512",
+                "initiator_system": "301",
+                "app_version": "1.0",
+                "trxn_branch": "77710",
+                "call_seq": calseqno,
+                "trxn_teller": "95068241",
+                "sponsor_system": "810",
+                "auth_user_id": "587046",
+                "servtp": "TE",
+                "sys_version": "1.0",
+                "inpudt": date,
+                "servno": "004",
+                "busi_seq": seqno,
+                "page_start": "1",
+                "trxn_seq": seqno,
+                "tranbr": date,
+                "trandt": date,
+                "longitude": "31.2579921",
+                "page_size": "10",
+                "orderSeq": calseqno,
+                "phone_type": "0",
+                "initiator_date": date,
+                "inpucd": "985",
+                "busisq": seqno,
+                "rsa_key": "77777777777777",
+                "inpusq": calseqno,
+                "corpno": "985",
+                "ip_address": "127.0.0.1",
+                "busi_org_id": "025",
+                "busiseqno": seqno,
+                "terminal_os_type": "0",
+                "tranus": "xadmin",
+                "initiator_seq": calseqno,
+                "pageIndex": "1",
+                "pageno": "1",
+                "pgsize": "1",
+                "callseqno": calseqno,
+                "channel_id": "LXIN"
+            }
         }
-        return Requester(header=header, json=data)
+        return Requester(headers=header, json=data)
 
     @RequestMapping(method=Method.POST)
     def PATSCMSS6003(self):
         '''乐信借款审批结果查询'''
         header = {}
         data = {
-            "applyNo":"",
-            "channelCode":"LXIN",
-            "prodCode":"02050015"
+            "input":{
+                "applyNo": "",
+                "channelCode": "LXIN",
+                "prodCode": "02050015"
+            },
         }
-        return Requester(header=header, json=data)
+        return Requester(headers=header, json=data)
 
 
     @RequestMapping(method=Method.POST)
@@ -186,7 +335,7 @@ class LXIN:
             "openAcctBank": "",
             "mobileNo":""
         }
-        return Requester(header=header, json=data)
+        return Requester(headers=header, json=data)
 
     @RequestMapping(method=Method.POST)
     def PATSCMSS7002(self,paymentApplyNo):
@@ -197,7 +346,7 @@ class LXIN:
             "channelCode":"LXIN",
             "prodCode":"02050015"
         }
-        return Requester(header=header, json=data)
+        return Requester(headers=header, json=data)
 
     @RequestMapping(method=Method.POST)
     def PATSCMSS8001(self):
@@ -207,7 +356,7 @@ class LXIN:
             "loanNo":"",
             "channelCode":""
         }
-        return Requester(header=header, json=data)
+        return Requester(headers=header, json=data)
 
     @RequestMapping(method=Method.POST)
     def PATSCMSS8002(self):
@@ -221,4 +370,4 @@ class LXIN:
             "repayAmt": "",
             "paymentApplyNo": "",
         }
-        return Requester(header=header, json=data)
+        return Requester(headers=header, json=data)

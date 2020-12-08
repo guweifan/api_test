@@ -3,8 +3,12 @@ import time
 from api.identity import *
 from api.firstname import first_name
 from api.langconv import *
-from api.phone_number import phone_number
 
+
+
+# 手机号开头
+phone_number = [139,138,137,136,135,134,159,158,15,150,151,152,188,
+                130,131,132,156,155,133,153,173,189]
 
 # 随机生成姓名
 def get_name():
@@ -33,32 +37,32 @@ def get_name():
     return name_code
 
 # 随机生成出生日期
-def get_birthday():
-    # 随机生成年月
-    year = random.randint(1960, 2000)
-    month = random.randint(1, 12)
-    # 判断每个月多少天随机生成日
-    if year % 4 == 0:
-        if month in (1, 3, 5, 7, 8, 10, 12):
-            day = random.randint(1, 31)
-        elif month in (4, 6, 9, 11):
-            day = random.randint(1, 30)
-        else:
-            day = random.randint(1, 29)
-    else:
-        if month in (1, 3, 5, 7, 8, 10, 12):
-            day = random.randint(1, 31)
-        elif month in (4, 6, 9, 11):
-            day = random.randint(1, 30)
-        else:
-            day = random.randint(1, 28)
-    # 小于10 的月份前面加0
-    if month < 10:
-        month = '0' + str(month)
-    if day < 10:
-        day = '0' + str(day)
-    birthday = str(year)+ str(month) + str(day)
-    return birthday
+# def get_birthday():
+#     # 随机生成年月
+#     year = random.randint(1960, 2000)
+#     month = random.randint(1, 12)
+#     # 判断每个月多少天随机生成日
+#     if year % 4 == 0:
+#         if month in (1, 3, 5, 7, 8, 10, 12):
+#             day = random.randint(1, 31)
+#         elif month in (4, 6, 9, 11):
+#             day = random.randint(1, 30)
+#         else:
+#             day = random.randint(1, 29)
+#     else:
+#         if month in (1, 3, 5, 7, 8, 10, 12):
+#             day = random.randint(1, 31)
+#         elif month in (4, 6, 9, 11):
+#             day = random.randint(1, 30)
+#         else:
+#             day = random.randint(1, 28)
+#     # 小于10 的月份前面加0
+#     if month < 10:
+#         month = '0' + str(month)
+#     if day < 10:
+#         day = '0' + str(day)
+#     birthday = str(year)+ str(month) + str(day)
+#     return birthday
 
 # 匿名函数
 

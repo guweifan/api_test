@@ -8,7 +8,7 @@ from api.randstr import get_name,generate_random_num,get_tel,generate_random_str
 
 
 
-@RequestMapping(path='{app.sit_gateway}',method=Method.POST)
+@RequestMapping(path='{app.sit1_gateway}',method=Method.POST)
 class MIUN_apply:
 
 

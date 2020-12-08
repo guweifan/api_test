@@ -14,7 +14,7 @@ def get_applid(applyno):
     return data[0]
 
 def get_requestid(applid):
-    '''获取进件中心 applid'''
+    '''获取进件中心 requestid'''
     # 设置ORACLE驱动位置
     os.environ['path'] = r'D:\\Program\\instantclient_19_8'
     # 建立与sit3进件中心数据库的连接
