@@ -164,7 +164,7 @@ class JieBei_apply:
 
 
 
-@RequestMapping(path="http://10.182.211.179:9009/gateway/ICMSLNTS0001", method=Method.POST)
+@RequestMapping(path="http://10.182.210.131:9009/gateway/ICMSLNTS0001", method=Method.POST)
 class ICMSLNTS0001:
 
     @RequestMapping(method=Method.POST)
@@ -420,3 +420,6 @@ class PATSJBSS1002:
             },
         }
         return Requester(headers=header, json=data)
+
+
+

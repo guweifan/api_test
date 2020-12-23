@@ -22,3 +22,5 @@ def get_image_03_base():
         image_03 = str(base64.b64encode(image), encoding='utf-8')
     return image_03
 
+if __name__ == "__main__":
+    print(get_image_01_base())

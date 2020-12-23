@@ -31,6 +31,7 @@ class LXIN:
         """影像件上传155 SFTP"""
         tar = get_tar(applyNo=applyNo)
         src = "D:\\Python_work\\walnuts_api\\api_test\\img\\" + tar
+        # path = "/upload/LXIN/photo/20201208/" + tar
         path = "/upload/LXIN/photo/" + date + "/" + tar
         upload_LXIN(src, path)
         time.sleep(1)
@@ -220,7 +221,7 @@ class LXIN:
 
 
     @RequestMapping(method=Method.POST)
-    def PATSCMSS6002(self,applyNo):
+    def PATSCMSS6001(self,applyNo):
         '''借款申请-标准'''
         seqno = generate_random_num(17)
         calseqno = "LN" + generate_random_num(12)
@@ -230,11 +231,11 @@ class LXIN:
 
         """报文头信息"""
         header = {
-            "api_id": "PATSCMSS6002",
+            "api_id": "PATSCMSS6001",
             "country": "cn",
             "calseqno": seqno,
             "dapplication": "81001",
-            "service": "PATSCMSS6002",
+            "service": "PATSCMSS6001",
             "callseqno": seqno,
             "dgroup": "onl01",
             "dversion": "1.0",
@@ -318,56 +319,281 @@ class LXIN:
     @RequestMapping(method=Method.POST)
     def PATSCMSS7001(self):
         '''借款支用申请-标准'''
-        header = {}
+        seqno = generate_random_num(17)
+        calseqno = "LN" + generate_random_num(12)
+        date = get_date()
+        applyTime = get_time()
+        header = {
+            "api_id": "PATSCMSS6001",
+            "country": "cn",
+            "calseqno": seqno,
+            "dapplication": "81001",
+            "service": "PATSCMSS6001",
+            "callseqno": seqno,
+            "dgroup": "onl01",
+            "dversion": "1.0",
+            "busiseqno": seqno,
+            "Content-Type": "application/json"
+        }
         data = {
-            "applyNo":"",
-            "paymentApplyNo":"",
-            "channelCode":"",
-            "userId":"",
-            "applyTime": "",
-            "payDayRule": "",
-            "payDay": "",
-            "cashPayFlag": "",
-            "payType": "",
-            "acctName": "",
-            "acctNo": "",
-            "acctType": "",
-            "openAcctBank": "",
-            "mobileNo":""
+            "input":{
+                "applyNo": "",
+                "paymentApplyNo": "",
+                "channelCode": "LXIN",
+                "userId": "",
+                "applyTime": "",
+                "payDayRule": "",
+                "payDay": "",
+                "cashPayFlag": "",
+                "payType": "",
+                "acctName": "",
+                "acctNo": "",
+                "acctType": "",
+                "openAcctBank": "",
+                "mobileNo": ""
+            },
+            "comm_req": {
+                "trantm": "752512",
+                "initiator_system": "301",
+                "app_version": "1.0",
+                "trxn_branch": "77710",
+                "call_seq": calseqno,
+                "trxn_teller": "95068241",
+                "sponsor_system": "810",
+                "auth_user_id": "587046",
+                "servtp": "TE",
+                "sys_version": "1.0",
+                "inpudt": date,
+                "servno": "004",
+                "busi_seq": seqno,
+                "page_start": "1",
+                "trxn_seq": seqno,
+                "tranbr": date,
+                "trandt": date,
+                "longitude": "31.2579921",
+                "page_size": "10",
+                "orderSeq": calseqno,
+                "phone_type": "0",
+                "initiator_date": date,
+                "inpucd": "985",
+                "busisq": seqno,
+                "rsa_key": "77777777777777",
+                "inpusq": calseqno,
+                "corpno": "985",
+                "ip_address": "127.0.0.1",
+                "busi_org_id": "025",
+                "busiseqno": seqno,
+                "terminal_os_type": "0",
+                "tranus": "xadmin",
+                "initiator_seq": calseqno,
+                "pageIndex": "1",
+                "pageno": "1",
+                "pgsize": "1",
+                "callseqno": calseqno,
+                "channel_id": "LXIN"
+            }
         }
         return Requester(headers=header, json=data)
 
     @RequestMapping(method=Method.POST)
     def PATSCMSS7002(self,paymentApplyNo):
         '''借款支用结果查询-标准'''
-        header = {}
+        seqno = generate_random_num(17)
+        calseqno = "LN" + generate_random_num(12)
+        date = get_date()
+        header = {
+            "api_id": "PATSCMSS7002",
+            "country": "cn",
+            "calseqno": seqno,
+            "dapplication": "81001",
+            "service": "PATSCMSS7002",
+            "callseqno": seqno,
+            "dgroup": "onl01",
+            "dversion": "1.0",
+            "busiseqno": seqno,
+            "Content-Type": "application/json"
+        }
         data = {
-            "paymentApplyNo":"",
-            "channelCode":"LXIN",
-            "prodCode":"02050015"
+            "input":{
+                "paymentApplyNo": "",
+                "channelCode": "LXIN",
+                "prodCode": "02050015"
+            },
+            "comm_req": {
+                "trantm": "752512",
+                "initiator_system": "301",
+                "app_version": "1.0",
+                "trxn_branch": "77710",
+                "call_seq": calseqno,
+                "trxn_teller": "95068241",
+                "sponsor_system": "810",
+                "auth_user_id": "587046",
+                "servtp": "TE",
+                "sys_version": "1.0",
+                "inpudt": date,
+                "servno": "004",
+                "busi_seq": seqno,
+                "page_start": "1",
+                "trxn_seq": seqno,
+                "tranbr": date,
+                "trandt": date,
+                "longitude": "31.2579921",
+                "page_size": "10",
+                "orderSeq": calseqno,
+                "phone_type": "0",
+                "initiator_date": date,
+                "inpucd": "985",
+                "busisq": seqno,
+                "rsa_key": "77777777777777",
+                "inpusq": calseqno,
+                "corpno": "985",
+                "ip_address": "127.0.0.1",
+                "busi_org_id": "025",
+                "busiseqno": seqno,
+                "terminal_os_type": "0",
+                "tranus": "xadmin",
+                "initiator_seq": calseqno,
+                "pageIndex": "1",
+                "pageno": "1",
+                "pgsize": "1",
+                "callseqno": calseqno,
+                "channel_id": "LXIN"
+            }
         }
         return Requester(headers=header, json=data)
 
     @RequestMapping(method=Method.POST)
     def PATSCMSS8001(self):
         '''乐信查询还款计划'''
-        header = {}
+        seqno = generate_random_num(17)
+        calseqno = "LN" + generate_random_num(12)
+        date = get_date()
+        header = {
+            "api_id": "PATSCMSS8001",
+            "country": "cn",
+            "calseqno": seqno,
+            "dapplication": "81001",
+            "service": "PATSCMSS8001",
+            "callseqno": seqno,
+            "dgroup": "onl01",
+            "dversion": "1.0",
+            "busiseqno": seqno,
+            "Content-Type": "application/json"
+        }
         data = {
-            "loanNo":"",
-            "channelCode":""
+            "input":{
+                "loanNo": "",
+                "channelCode": ""
+            },
+            "comm_req": {
+                "trantm": "752512",
+                "initiator_system": "301",
+                "app_version": "1.0",
+                "trxn_branch": "77710",
+                "call_seq": calseqno,
+                "trxn_teller": "95068241",
+                "sponsor_system": "810",
+                "auth_user_id": "587046",
+                "servtp": "TE",
+                "sys_version": "1.0",
+                "inpudt": date,
+                "servno": "004",
+                "busi_seq": seqno,
+                "page_start": "1",
+                "trxn_seq": seqno,
+                "tranbr": date,
+                "trandt": date,
+                "longitude": "31.2579921",
+                "page_size": "10",
+                "orderSeq": calseqno,
+                "phone_type": "0",
+                "initiator_date": date,
+                "inpucd": "985",
+                "busisq": seqno,
+                "rsa_key": "77777777777777",
+                "inpusq": calseqno,
+                "corpno": "985",
+                "ip_address": "127.0.0.1",
+                "busi_org_id": "025",
+                "busiseqno": seqno,
+                "terminal_os_type": "0",
+                "tranus": "xadmin",
+                "initiator_seq": calseqno,
+                "pageIndex": "1",
+                "pageno": "1",
+                "pgsize": "1",
+                "callseqno": calseqno,
+                "channel_id": "LXIN"
+            }
         }
         return Requester(headers=header, json=data)
 
     @RequestMapping(method=Method.POST)
     def PATSCMSS8002(self):
         '''乐信提前还款试算'''
-        header = {}
+        seqno = generate_random_num(17)
+        calseqno = "LN" + generate_random_num(12)
+        date = get_date()
+        header = {
+            "api_id": "PATSCMSS8002",
+            "country": "cn",
+            "calseqno": seqno,
+            "dapplication": "81001",
+            "service": "PATSCMSS8002",
+            "callseqno": seqno,
+            "dgroup": "onl01",
+            "dversion": "1.0",
+            "busiseqno": seqno,
+            "Content-Type": "application/json"
+        }
         data = {
-            "loanNo":"",
-            "channelCode":"",
-            "repayType": "",
-            "mode": "",
-            "repayAmt": "",
-            "paymentApplyNo": "",
+            "input":{
+                "loanNo": "",
+                "channelCode": "",
+                "repayType": "",
+                "mode": "",
+                "repayAmt": "",
+                "paymentApplyNo": "",
+            },
+            "comm_req": {
+                "trantm": "752512",
+                "initiator_system": "301",
+                "app_version": "1.0",
+                "trxn_branch": "77710",
+                "call_seq": calseqno,
+                "trxn_teller": "95068241",
+                "sponsor_system": "810",
+                "auth_user_id": "587046",
+                "servtp": "TE",
+                "sys_version": "1.0",
+                "inpudt": date,
+                "servno": "004",
+                "busi_seq": seqno,
+                "page_start": "1",
+                "trxn_seq": seqno,
+                "tranbr": date,
+                "trandt": date,
+                "longitude": "31.2579921",
+                "page_size": "10",
+                "orderSeq": calseqno,
+                "phone_type": "0",
+                "initiator_date": date,
+                "inpucd": "985",
+                "busisq": seqno,
+                "rsa_key": "77777777777777",
+                "inpusq": calseqno,
+                "corpno": "985",
+                "ip_address": "127.0.0.1",
+                "busi_org_id": "025",
+                "busiseqno": seqno,
+                "terminal_os_type": "0",
+                "tranus": "xadmin",
+                "initiator_seq": calseqno,
+                "pageIndex": "1",
+                "pageno": "1",
+                "pgsize": "1",
+                "callseqno": calseqno,
+                "channel_id": "LXIN"
+            }
         }
         return Requester(headers=header, json=data)

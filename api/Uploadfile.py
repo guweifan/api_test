@@ -75,6 +75,15 @@ def get_tar(applyNo):
     tar.close()
     return filename
 
+def exec_commands(cmd):
+    transport = paramiko.Transport(('10.182.211.137', 22))
+    transport.connect(username='root', password='root123')
+    ssh = paramiko.SSHClient()
+    ssh._transport = transport
+    stdin, stdout, stderr = ssh.exec_command(cmd)
+    results = stdout.read()
+    return results
+
 
 
 
