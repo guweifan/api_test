@@ -9,8 +9,8 @@ class TestcreditApply:
         '''招联授信申请'''
         app = CreditApply()
         res = app.creditApply().json()
-        # assert 'SUCCESS' in res
-        # return res
+        # assert res["sys"]['erortx'] == "SUCCESS"  # 断言
+
 
 
     def test_query(self):

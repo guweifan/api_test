@@ -6,14 +6,20 @@ app:
   sit2_gateway: http://10.182.211.103:9009/gateway
   sit3_gateway: http://10.182.211.179:9009/gateway
   sit4_gateway: http://10.182.212.101:9009/gateway
+  sit5_gateway: http://10.182.212.135:9009/gateway
+  sit6_gateway: http://10.182.212.164:9009/gateway
   uat_gateway: http://10.182.220.105:9009/gateway
+  sit3_tout_marshal: http://10.182.211.179:9009/toutiao/marshal
   uat_mufc: http://10.182.220.105:9009/mucfc/uloan/merchCreditApply
+  sit3_mufc: http://10.182.211.179:9009/mucfc/uloan/merchCreditApply
   sit2_mufc: http://10.182.211.103:9009/mucfc/uloan/merchCreditApply
   query: 10.182.220.105:9009/mucfc/uloan/merchQueryApplyResult
   encrvption: http://10.182.211.73:8091/mucf/encryption
   decryption: http://22.186.80.8:8888/mucf/decrypt
   vip_encrvption: http://10.182.200.116:8091/encryption
   vip_apply: http://10.182.211.103:9009/bocxf/credit/openAccount
+
+
 
 user:
   account: admin@admin.com

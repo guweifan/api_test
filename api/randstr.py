@@ -3,6 +3,9 @@ import time
 from api.identity import *
 from api.firstname import first_name
 from api.langconv import *
+import hashlib
+
+
 
 
 
@@ -80,7 +83,7 @@ def get_tel():
 
 # 随机生成银行卡号
 def get_card_id():
-    card_id = '622676'
+    card_id = '621661'
     for i in range(13):
         ran = str(random.randint(0, 9))
         card_id += ran
@@ -130,6 +133,14 @@ def generate_random_num(randomlength=16):
     for i in range(randomlength):
         random_num += base_str[random.randint(0, length)]
     return random_num
+
+def getStrAsMD5(parmStr):
+    if isinstance(parmStr,str):
+    	 # 如果是unicode先转utf-8
+    	parmStr = parmStr.encode("utf-8")
+    m = hashlib.md5()
+    m.update(parmStr)
+    return m.hexdigest()
 
 
 
